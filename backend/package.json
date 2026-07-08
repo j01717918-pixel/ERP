@@ -6,7 +6,7 @@
   "build": "prisma generate && tsc",
   "start": "node dist/src/index.js",
   "prisma:seed": "tsx prisma/seed.ts"
-}
+},
   "prisma": { "seed": "tsx prisma/seed.ts" },
   "dependencies": {
     "@prisma/client": "^5.22.0",
