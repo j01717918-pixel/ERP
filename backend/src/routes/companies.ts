@@ -21,9 +21,13 @@ companyRouter.post("/", async (req: AuthReq, res, next) => {
   } catch (e) { next(e); }
 });
 companyRouter.put("/:id", async (req: AuthReq, res, next) => {
-  try { res.json(await db.company.update({ where: { id: req.params.id }, data: schema.parse(req.body) })); }
+  try {
+    const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+    res.json(await db.company.update({ where: { id }, data: schema.parse(req.body) }));
+  }
   catch (e) { next(e); }
 });
 companyRouter.delete("/:id", async (req, res) => {
-  await db.company.delete({ where: { id: req.params.id } }); res.json({ ok: true });
+  const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+  await db.company.delete({ where: { id } }); res.json({ ok: true });
 });

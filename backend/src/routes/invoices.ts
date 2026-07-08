@@ -14,8 +14,9 @@ invoiceRouter.get("/", async (req: AuthReq, res) => {
 });
 
 invoiceRouter.get("/:id/pdf", async (req: AuthReq, res) => {
+  const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
   const inv = await db.invoice.findUnique({
-    where: { id: req.params.id },
+    where: { id },
     include: { company: true, sales: { include: { customer: true, items: { include: { item: true }}}}},
   });
   if (!inv) return res.status(404).json({ error: "Not found" });

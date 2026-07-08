@@ -17,8 +17,9 @@ customerRouter.get("/", async (req: AuthReq, res) => {
   }));
 });
 customerRouter.get("/:id/ledger", async (req: AuthReq, res) => {
-  const c = await db.customer.findUnique({ where: { id: req.params.id } });
-  const sales = await db.salesVoucher.findMany({ where: { customerId: req.params.id }, orderBy: { date: "desc" }});
+  const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+  const c = await db.customer.findUnique({ where: { id } });
+  const sales = await db.salesVoucher.findMany({ where: { customerId: id }, orderBy: { date: "desc" }});
   res.json({ customer: c, sales });
 });
 customerRouter.post("/", async (req: AuthReq, res, next) => {
@@ -26,7 +27,14 @@ customerRouter.post("/", async (req: AuthReq, res, next) => {
   catch(e){next(e);}
 });
 customerRouter.put("/:id", async (req, res, next) => {
-  try { res.json(await db.customer.update({ where: { id: req.params.id }, data: s.parse(req.body) })); }
+  try {
+    const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+    res.json(await db.customer.update({ where: { id }, data: s.parse(req.body) }));
+  }
   catch(e){next(e);}
 });
-customerRouter.delete("/:id", async (req, res) => { await db.customer.delete({ where: { id: req.params.id }}); res.json({ ok: true }); });
+customerRouter.delete("/:id", async (req, res) => {
+  const id = Array.isArray(req.params.id) ? req.params.id[0] : req.params.id;
+  await db.customer.delete({ where: { id }});
+  res.json({ ok: true });
+});
