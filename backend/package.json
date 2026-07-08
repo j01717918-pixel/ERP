@@ -1,12 +1,12 @@
 {
   "name": "smarterp-backend",
   "version": "1.0.0",
-  "scripts": {
-    "dev": "tsx watch src/index.ts",
-    "build": "prisma generate && tsc",
-    "start": "node dist/index.js",
-    "prisma:seed": "tsx prisma/seed.ts"
-  },
+"scripts": {
+  "dev": "tsx watch src/index.ts",
+  "build": "prisma generate && tsc",
+  "start": "node dist/src/index.js",
+  "prisma:seed": "tsx prisma/seed.ts"
+}
   "prisma": { "seed": "tsx prisma/seed.ts" },
   "dependencies": {
     "@prisma/client": "^5.22.0",
