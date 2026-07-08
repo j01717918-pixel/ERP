@@ -40,3 +40,4 @@ Companies · Customers · Suppliers · Items · Purchase Vouchers · Sales Vouch
 
 ## Keyboard
 `Ctrl+K` palette · `Ctrl+H` dashboard · `F8` sales · `F9` purchase · `Ctrl+B` invoice
+"# ERP" 
